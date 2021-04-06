@@ -32,37 +32,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "E631EC46261324AC00072F65"
-               BuildableName = "IPCTests.xctest"
-               BlueprintName = "IPCTests"
-               ReferencedContainer = "container:IPC.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "E631EC51261324AC00072F65"
-               BuildableName = "IPCUITests.xctest"
-               BlueprintName = "IPCUITests"
-               ReferencedContainer = "container:IPC.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "E6C1AC38261A163200D3674E"
-               BuildableName = "IPCTests.xctest"
-               BlueprintName = "IPCTests"
-               ReferencedContainer = "container:IPC.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "E6C1AC43261A163200D3674E"
                BuildableName = "IPCUITests.xctest"
                BlueprintName = "IPCUITests"
                ReferencedContainer = "container:IPC.xcodeproj">

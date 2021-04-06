@@ -7,9 +7,9 @@
 
 import Foundation
 import Network
+import os.log
 
 final class TargetCommunicationReceiver {
-  let port: UInt16
 
   var onMessageReceived: ((Data) -> Void)?
 
@@ -18,8 +18,10 @@ final class TargetCommunicationReceiver {
   private let listenerQueue = DispatchQueue(label: "TargetCommunicationReceiver.listener")
   private let connectionsQueue = DispatchQueue(label: "TargetCommunicationReceiver.connections")
 
-  init(port: UInt16) {
-    self.port = port
+  init?() {
+    print("\(Date().description(with: Locale.current)) Before")
+    guard let port = TargetCommunicationReceiver.portFromAppArguments() else { return nil }
+    print("\(Date().description(with: Locale.current)) Receiver port \(port)")
     let parameters = NWParameters.udp
     parameters.allowLocalEndpointReuse = true
     parameters.requiredLocalEndpoint = NWEndpoint.hostPort(
@@ -48,6 +50,7 @@ final class TargetCommunicationReceiver {
   private func receive(connection: NWConnection) {
     connection.receiveMessage { [weak self] data, _, _, error in
       guard let self = self else { return }
+      print("Receiving...")
       if let data = data {
         DispatchQueue.main.async {
           self.onMessageReceived?(data)
@@ -59,6 +62,23 @@ final class TargetCommunicationReceiver {
       }
       self.receive(connection: connection)
     }
+  }
+}
+
+private extension TargetCommunicationReceiver {
+  static func portFromAppArguments() -> UInt16? {
+    let portPrefix = "customScenario"
+    ProcessInfo.processInfo.arguments.forEach {
+      print($0)
+    }
+    guard
+      let portArgument = ProcessInfo.processInfo.arguments.first(where: { $0.hasPrefix(portPrefix) }),
+      let port = UInt16(portArgument.dropFirst(portPrefix.count))
+    else {
+      print("TargetCommunicationSender: No valid port found in arguments (looking for \(portPrefix)")
+      return nil
+    }
+    return port
   }
 }
 

@@ -5,8 +5,20 @@
 //  Created by Santiago Avila on 04.04.21.
 //
 
+import XCTest
 import Foundation
 
-final class View: UITestCase {
-  
+final class ViewTest: UITestCase {
+
+  func testSender() {
+    sleep(30)
+    headersSender.send(scenario: Constants.scenario)
+    XCTAssertEqual("", String())
+  }
+}
+
+extension ViewTest {
+  struct Constants {
+    static let scenario = Scenario(name: "name", path: "path")
+  }
 }

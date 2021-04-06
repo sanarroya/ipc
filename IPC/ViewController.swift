@@ -9,11 +9,18 @@ import UIKit
 
 class ViewController: UIViewController {
 
+  @IBOutlet private weak var headerLabel: UILabel!
+  
   override func viewDidLoad() {
     super.viewDidLoad()
-    // Do any additional setup after loading the view.
+    DispatchQueue.main.asyncAfter(deadline: .now() + 15) {
+      guard let scenario = HeaderInteractor.shared.pop() else {
+        self.headerLabel.text = "No headers"
+        return
+      }
+      
+      self.headerLabel.text = "Scenario: \(scenario.name), Path: \(scenario.path)"
+    }
   }
-
-
 }
 

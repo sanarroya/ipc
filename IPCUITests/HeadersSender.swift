@@ -11,7 +11,11 @@ final class HeadersSender {
 
   static let shared = HeadersSender()
 
-  private let sender = TargetCommunicationSender()
+  private var sender: TargetCommunicationSender?
+  
+  func initIPC(withPort port: UInt16) {
+    sender = TargetCommunicationSender(port: port)
+  }
 
   func send(scenario: Scenario) {
     guard let data = try? JSONEncoder().encode(scenario) else { return }

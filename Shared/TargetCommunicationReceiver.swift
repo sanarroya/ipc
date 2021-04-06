@@ -50,12 +50,16 @@ final class TargetCommunicationReceiver {
   private func receive(connection: NWConnection) {
     connection.receiveMessage { [weak self] data, _, _, error in
       guard let self = self else { return }
-      print("Receiving...")
+      print("\(Date().description(with: Locale.current)) Receiving...")
       if let data = data {
+        print("Data is valid")
         DispatchQueue.main.async {
           self.onMessageReceived?(data)
         }
+      } else {
+        print("Invalid data")
       }
+
       if let error = error {
         print("\(self) error on received message: \(error)")
         return

@@ -16,12 +16,15 @@ final class HeadersReceiver {
   init() {
     receiver = TargetCommunicationReceiver()
     receiver?.onMessageReceived = { self.headerReceived($0) }
+    receiver?.start()
   }
 }
 
 private extension HeadersReceiver {
   func headerReceived(_ data: Data) {
+    print("HeadersReceiver receiving...")
     if let scenario = try? JSONDecoder().decode(Scenario.self, from: data) {
+      print("Received: Scenario->\(scenario.name) Path->\(scenario.path)")
       onHeaderReceived?(scenario)
     }
   }

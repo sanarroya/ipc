@@ -11,7 +11,6 @@ import Foundation
 final class ViewTest: UITestCase {
 
   func testSender() {
-    sleep(30)
     headersSender.send(scenario: Constants.scenario)
     XCTAssertEqual("", String())
   }

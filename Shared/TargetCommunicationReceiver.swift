@@ -7,7 +7,6 @@
 
 import Foundation
 import Network
-import os.log
 
 final class TargetCommunicationReceiver {
 
@@ -19,9 +18,7 @@ final class TargetCommunicationReceiver {
   private let connectionsQueue = DispatchQueue(label: "TargetCommunicationReceiver.connections")
 
   init?() {
-    print("\(Date().description(with: Locale.current)) Before")
     guard let port = TargetCommunicationReceiver.portFromAppArguments() else { return nil }
-    print("\(Date().description(with: Locale.current)) Receiver port \(port)")
     let parameters = NWParameters.udp
     parameters.allowLocalEndpointReuse = true
     parameters.requiredLocalEndpoint = NWEndpoint.hostPort(
@@ -50,18 +47,13 @@ final class TargetCommunicationReceiver {
   private func receive(connection: NWConnection) {
     connection.receiveMessage { [weak self] data, _, _, error in
       guard let self = self else { return }
-      print("\(Date().description(with: Locale.current)) Receiving...")
       if let data = data {
-        print("Data is valid")
         DispatchQueue.main.async {
           self.onMessageReceived?(data)
         }
-      } else {
-        print("Invalid data")
       }
 
-      if let error = error {
-        print("\(self) error on received message: \(error)")
+      if let _ = error {
         return
       }
       self.receive(connection: connection)

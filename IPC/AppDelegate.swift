@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  IPC
 //
-//  Created by temporaryadmin on 04.04.21.
+//  Created by Santiago Avila on 04.04.21.
 //
 
 import UIKit

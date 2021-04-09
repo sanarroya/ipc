@@ -18,7 +18,6 @@ final class TargetCommunicationSender {
   private let dataAccessQueue = DispatchQueue(label: "TargetCommunication.eventAccess")
 
   init(port: UInt16) {
-    NSLog("Sender port: \(port)")
     self.port = port
     let udpPort = NWEndpoint.Port(rawValue: self.port)!
     let parameters = NWParameters.udp
@@ -40,13 +39,10 @@ final class TargetCommunicationSender {
 
   private func sendNext() {
     guard let data = getNextDataToSend() else { return }
-    NSLog("Sending...")
     connection.send(content: data, completion: .contentProcessed { [weak self] error in
       guard let scenario = try? JSONDecoder().decode(Scenario.self, from: data) else {
-        NSLog("Error sending data")
         return
       }
-      NSLog("Sending: Path->\(scenario.path) scenario->\(scenario.name)")
       guard let self = self else { return }
       if let error = error {
         print("\(self) error on connection send: \(error)")

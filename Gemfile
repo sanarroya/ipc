@@ -7,5 +7,4 @@ gem 'xcov'
 gem 'fastlane-plugin-json'
 gem 'fastlane-plugin-upload_code_coverage', git: 'git@github.com:deliveryhero/pd-fastlane-plugin-upload-code-coverage.git', branch: 'main'
 
-plugins_path = 'fastlane/Pluginfile'
-eval_gemfile(plugins_path) if File.exist?(plugins_path)
+eval_gemfile('fastlane/Pluginfile') if File.exist?('fastlane/Pluginfile')
